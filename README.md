@@ -3,7 +3,6 @@
 ### how to get started
 
 1. ```$ git clone https://github.tamu.edu/jacobt1206/proj3_server.git```
-
 2. ```$ cd proj3_server```
 3. On a mac: ```python3 -m venv env``` || On a PC: ```py -3 -m venv env```
 4. On a mac: ```. env/bin/activate``` || On a PC: ```env\Scripts\activate```
@@ -11,6 +10,14 @@
 6. ```flask run```
 7. ```Ctrl + C``` to kill the server
 8. ```$ deactivate``` to deactive the virtual enviornment
+
+### how to begin work
+
+1. ```$ cd proj3_server```
+2. On a mac: ```. env/bin/activate``` || On a PC: ```env\Scripts\activate```
+3. ```flask run```
+4. ```Ctrl + C``` to kill the server
+5. ```$ deactivate``` to deactive the virtual enviornment
 
 ### IMPORTANT!
 
