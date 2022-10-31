@@ -1,3 +1,5 @@
+:exclamation:ONLY USE GIT/GITHUB DESKTOP TO INTERACT WITH THIS REPO:exclamation:
+
 # proj3_server
 
 **If you get stuck Google: '*[Whatever you are trying to do] in flask*' and follow the tutorial**
