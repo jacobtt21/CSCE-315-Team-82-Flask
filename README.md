@@ -1,5 +1,7 @@
 # proj3_server
 
+**If you get stuck Google: '*[Whatever you are trying to do] in flask*' and follow the tutorial**
+
 ### how to get started
 
 1. ```$ git clone https://github.tamu.edu/jacobt1206/proj3_server.git```
@@ -8,6 +10,7 @@
 4. On a mac: ```. env/bin/activate``` || On a PC: ```env\Scripts\activate```
 5. ```pip install -r requirements.txt```
 6. ```flask run```
+> At this point you can begin working in the main.py file. Remember to push and pull frequently.
 7. ```Ctrl + C``` to kill the server
 8. ```$ deactivate``` to deactive the virtual enviornment
 
@@ -16,8 +19,14 @@
 1. ```$ cd proj3_server```
 2. On a mac: ```. env/bin/activate``` || On a PC: ```env\Scripts\activate```
 3. ```flask run```
+> At this point you can begin working in the main.py file. Remember to push and pull frequently.
 4. ```Ctrl + C``` to kill the server
 5. ```$ deactivate``` to deactive the virtual enviornment
+
+
+### how to test endpoints with Postman
+
+The server is going to running on your laptop at `http://127.0.0.1:5000`. To test whether or not your endpoint is working, go to postman and make a `POST` or `GET` request to `http://127.0.0.1:5000/[your endpoint name]`. Add any form data you need to in Postman and then click send. the server will respond with a message, you can debug from there.
 
 ### IMPORTANT!
 
