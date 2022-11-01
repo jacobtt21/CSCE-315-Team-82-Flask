@@ -19,11 +19,13 @@
 ### how to begin work
 
 1. ```$ cd proj3_server```
-2. On a mac: ```. env/bin/activate``` || On a PC: ```env\Scripts\activate```
-3. ```flask run```
+2. ```git pull origin main --rebase```
+3. On a mac: ```. env/bin/activate``` || On a PC: ```env\Scripts\activate```
+4. ```pip install -r requirements.txt```
+5. ```flask run```
 > At this point you can begin working in the main.py file. Remember to push and pull frequently.
-4. ```Ctrl + C``` to kill the server
-5. ```$ deactivate``` to deactive the virtual enviornment
+6. ```Ctrl + C``` to kill the server
+7. ```$ deactivate``` to deactive the virtual enviornment
 
 
 ### how to test endpoints with Postman
