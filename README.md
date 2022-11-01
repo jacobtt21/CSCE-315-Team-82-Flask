@@ -15,6 +15,7 @@
 > At this point you can begin working in the main.py file. Remember to push and pull frequently.
 7. ```Ctrl + C``` to kill the server
 8. ```$ deactivate``` to deactive the virtual enviornment
+9. Push to github
 
 ### how to begin work
 
@@ -26,6 +27,7 @@
 > At this point you can begin working in the main.py file. Remember to push and pull frequently.
 6. ```Ctrl + C``` to kill the server
 7. ```$ deactivate``` to deactive the virtual enviornment
+8. Push to github
 
 
 ### how to test endpoints with Postman
