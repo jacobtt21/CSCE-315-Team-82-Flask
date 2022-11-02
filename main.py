@@ -11,7 +11,7 @@ def index():
   if request.method == 'POST':
     return jsonify({'res' :  connection.get_dsn_parameters()})   # this returns the stats of the connection and can be changed.
   else:
-    return redirect("http://www.oustro.xyz", code=302)
+    return redirect("https://www.oustro.xyz", code=302)
 
 if __name__ == '__main__':
     app.run()
