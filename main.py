@@ -6,6 +6,25 @@ connection = psycopg2.connect(user="csce315_908_hollenbeck",password="130009055"
 
 # https://pynative.com/python-postgresql-tutorial/ <-- tutorial on how to use psycopg2. Refer to this if you have any questions
 
+@app.route('/item_price')
+def get_item_price():
+  cur = connection.cursor()
+
+  try:
+    cur.execute("select quantity from item where item_id = 1")
+    rows = cur.fetchall()
+    item_quantity = str(rows[0][0])
+    # response = {
+    #   "item_name": "chicken",
+    #   "quantity" : 
+    # }
+    cur.close()
+    connection.commit()
+  except:
+    connection.rollback()
+  return item_quantity
+
+
 @app.route('/', methods=['POST', 'GET'])
 def index():
   if request.method == 'POST':
@@ -14,4 +33,4 @@ def index():
     return redirect("http://www.oustro.xyz", code=302)
 
 if __name__ == '__main__':
-    app.run()
+  app.run()
