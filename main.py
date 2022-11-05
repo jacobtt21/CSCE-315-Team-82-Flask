@@ -51,5 +51,41 @@ def fetch_menu_items():
   else:
       return redirect("https://www.oustro.xyz", code=302)
 
+@app.route('/get-order-type/<id>', methods=['GET'])
+def get_order_type(id):
+  if request.method == 'GET':
+    rows = {}
+    try:
+      cur = connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+      cur.execute("SELECT order_type.order_id, order_type.name, order_type.nickname, order_type.type, order_type.price, order_type.orderable, item.name AS mainItemName, order_type.item_key FROM order_type LEFT JOIN item AS item ON (item_key = item.item_id) WHERE order_type.order_id = " + id)
+      rows = cur.fetchall()
+      cur.close()
+      connection.commit()
+    except:
+      connection.rollback()
+    response = jsonify(rows)
+    response.headers.add('Access-Control-Allow-Origin', '*') # allows flask to work for get requests
+    return response
+  else:
+      return redirect("https://www.oustro.xyz", code=302)
+
+@app.route('/fetch-items', methods=['GET'])
+def fetch_items():
+  if request.method == 'GET':
+    rows = {}
+    try:
+      cur = connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+      cur.execute("SELECT * from item")
+      rows = cur.fetchall()
+      cur.close()
+      connection.commit()
+    except:
+      connection.rollback()
+    response = jsonify(rows)
+    response.headers.add('Access-Control-Allow-Origin', '*') # allows flask to work for get requests
+    return response
+  else:
+      return redirect("https://www.oustro.xyz", code=302)
+
 if __name__ == '__main__':
   app.run()
