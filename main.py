@@ -1,5 +1,6 @@
 from flask import Flask, request, redirect, jsonify
 import psycopg2
+import psycopg2.extras
 
 app = Flask(__name__)
 connection = psycopg2.connect(user="csce315_908_hollenbeck",password="130009055", host="csce-315-db.engr.tamu.edu", port="5432", database="csce315_908_82")
@@ -13,5 +14,42 @@ def index():
   else:
     return redirect("https://www.oustro.xyz", code=302)
 
+
+@app.route('/item_price', methods=['POST', 'GET'])
+def get_item_price():
+  if request.method == 'POST':
+    cur = connection.cursor()
+    try:
+      # item = request.form['item'] <-- getting the item from the API call to the server which can be used in the SQL query
+      cur.execute("select quantity from item where item_id = 1")
+      rows = cur.fetchall()
+      item_quantity = str(rows[0][0])
+      cur.close()
+      connection.commit()
+      print("hello")
+    except:
+      connection.rollback()
+    return jsonify({'quantity' :  item_quantity })
+  else:
+    return redirect("https://www.oustro.xyz", code=302)
+
+@app.route('/fetch-menu-items', methods=['GET'])
+def fetch_menu_items():
+  if request.method == 'GET':
+    rows = {}
+    try:
+      cur = connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+      cur.execute("SELECT order_type.order_id, order_type.name, order_type.nickname, order_type.type, order_type.price, order_type.orderable, item.name AS mainItemName FROM order_type LEFT JOIN item AS item ON (item_key = item.item_id)")
+      rows = cur.fetchall()
+      cur.close()
+      connection.commit()
+    except:
+      connection.rollback()
+    response = jsonify(rows)
+    response.headers.add('Access-Control-Allow-Origin', '*') # allows flask to work for get requests
+    return response
+  else:
+      return redirect("https://www.oustro.xyz", code=302)
+
 if __name__ == '__main__':
-    app.run()
+  app.run()
