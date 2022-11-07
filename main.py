@@ -128,5 +128,53 @@ def edit_menu_item(id):
     response.headers.add('Access-Control-Allow-Origin', '*') # allows flask to work for get requests
     return response
 
+@app.route('/new-menu-item', methods=['POST'])
+def new_menu_item():
+    try:
+      form = request.form.to_dict(flat=True)
+
+      if (len(form) == 0):
+        response = jsonify({})
+        response.headers.add('Access-Control-Allow-Origin', '*') # allows flask to work for get requests
+        return response
+
+      strings = ["name", "nickname", "type"]
+      columns = ""
+      values = ""
+      subquery = "SELECT MAX(order_id) from order_type"
+
+      last_column = "order_id"
+      last_value = "(" + subquery + ") + 1"
+
+      form = dict( [(k,v) for k,v in form.items() if len(v)>0])
+
+      i = 0
+      for column in form:
+        columns += column
+        if (strings.count(column) > 0):
+          values += "'" + form[column] + "'"
+        else:
+          values += form[column]
+
+        columns += ", "
+        values += ", "
+
+        i = i + 1
+
+      columns += last_column
+      values += last_value
+
+      query = "INSERT INTO order_type (" + columns + ") VALUES (" + values + ")"
+
+      cur = connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+      cur.execute(query)
+      cur.close()
+      connection.commit()
+    except:
+      connection.rollback()
+    response = jsonify({})
+    response.headers.add('Access-Control-Allow-Origin', '*') # allows flask to work for get requests
+    return response
+
 if __name__ == '__main__':
   app.run()
