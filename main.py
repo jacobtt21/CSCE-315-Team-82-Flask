@@ -90,16 +90,37 @@ def fetch_items():
 @app.route('/edit-menu-item/<id>', methods=['POST'])
 def edit_menu_item(id):
     try:
-      form = request.form.to_dict(flat=False)
-      query = ""
+      form = request.form.to_dict(flat=True)
 
-      for i in form:
-        print (i)
+      if (len(form) == 0):
+        response = jsonify({})
+        response.headers.add('Access-Control-Allow-Origin', '*') # allows flask to work for get requests
+        return response
 
-      # cur = connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
-      # cur.execute("SELECT order_type.order_id, order_type.name, order_type.nickname, order_type.type, order_type.price, order_type.orderable, item.name AS mainItemName, order_type.item_key FROM order_type LEFT JOIN item AS item ON (item_key = item.item_id) WHERE order_type.order_id = " + id)
-      # rows = cur.fetchall()
-      # cur.close()
+      strings = ["name", "nickname", "type"]
+      query = "UPDATE order_type SET "
+
+      form = dict( [(k,v) for k,v in form.items() if len(v)>0])
+
+      i = 0
+      for column in form:
+        if (strings.count(column) > 0):
+          query += column + " = " + "'" + form[column] + "'"
+        else:
+          query += column + " = " + form[column]
+
+        if i < len(form) - 1:
+          query += ", "
+
+        i = i + 1
+
+      query += " WHERE order_id = " + id
+
+      print(query)
+
+      cur = connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+      cur.execute(query)
+      cur.close()
       connection.commit()
     except:
       connection.rollback()
