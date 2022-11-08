@@ -176,5 +176,21 @@ def new_menu_item():
     response.headers.add('Access-Control-Allow-Origin', '*') # allows flask to work for get requests
     return response
 
+@app.route('/delete-menu-item/<id>', methods=['POST'])
+def delete_menu_item(id):
+    try:
+      query = ""
+      if (id.isnumeric() and int(id) > 0):
+        query = "DELETE FROM order_type WHERE order_id = " + id
+        cur = connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+        cur.execute(query)
+        cur.close()
+        connection.commit()
+    except:
+      connection.rollback()
+    response = jsonify({})
+    response.headers.add('Access-Control-Allow-Origin', '*') # allows flask to work for get requests
+    return response
+
 if __name__ == '__main__':
   app.run()
