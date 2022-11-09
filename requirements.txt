@@ -8,3 +8,4 @@ psycopg2-binary==2.9.5
 python-dotenv==0.21.0
 Werkzeug==2.2.2
 zipp==3.10.0
+Gunicorn
