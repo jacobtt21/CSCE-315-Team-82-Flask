@@ -191,6 +191,3 @@ def delete_menu_item(id):
     response = jsonify({})
     response.headers.add('Access-Control-Allow-Origin', '*') # allows flask to work for get requests
     return response
-
-if __name__ == '__main__':
-  app.run()
