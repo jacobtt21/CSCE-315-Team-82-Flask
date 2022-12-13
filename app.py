@@ -183,7 +183,7 @@ def get_order_type(id):
     rows = {}
     try:
       cur = connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
-      cur.execute("SELECT order_type.order_id, order_type.name, order_type.nickname, order_type.type, order_type.price, order_type.orderable, item.name AS mainItemName, order_type.item_key FROM order_type LEFT JOIN item AS item ON (item_key = item.item_id) WHERE order_type.order_id = " + id)
+      cur.execute("SELECT order_type.order_id, order_type.name, order_type.nickname, order_type.type, order_type.price, order_type.orderable, order_type.image, item.name AS mainItemName, order_type.item_key FROM order_type LEFT JOIN item AS item ON (item_key = item.item_id) WHERE order_type.order_id = " + id)
       rows = cur.fetchall()
       cur.close()
       connection.commit()
